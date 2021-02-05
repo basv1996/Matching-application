@@ -1,0 +1,27 @@
+{
+  "name": "project-tech",
+  "version": "1.0.0",
+  "description": "this is a project for block-tech",
+  "homepage": "https://github.com/basv1996/Matching-application",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "node index.js",
+    "install": "node-gyp rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/basv1996/Matching-application",
+    "bugs": "https://github.com/basv1996/Matching-application/issues"
+  },
+  "author": "Bas Vugts",
+  "license": "MIT",
+  "dependencies": {
+    "camelcase": "^6.2.0",
+    "express": "^4.17.1",
+    "socket.io": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
