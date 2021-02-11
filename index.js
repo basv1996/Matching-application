@@ -3,14 +3,21 @@
  @description First index.js for project for block-tech
  */
 
-var express = require('express');  
-var app = express();  
-var server = require('http').createServer(app);  
+const express = require('express');  
+const app = express();  
+//var server = require('http').createServer(app);  
 const port = 8080;
+const router = require('./router/route.js');
 
 
-app.get('/', onhome).listen(port);
+app.get('/', function(req, res){
+res.send('Hello World')
+});
 
-function onhome(req, res) {
-    res.send("<h1>Hello Client</h1>");
-}
+app.listen(port, function() {
+        //watch out, there are different quotes here
+    console.log(`localhost${port}`)
+
+})
+
+app.use('/', router);

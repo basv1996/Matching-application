@@ -20,3 +20,6 @@ The application should start autamatically if not then try the following.
 ```bash
 npm run start
 ```
+
+# License
+MIT
