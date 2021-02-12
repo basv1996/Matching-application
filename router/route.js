@@ -3,17 +3,19 @@ const router = express.Router();
 
 //Home Page route
 router.get('/', function(req, res){
-    res.send('Home page');
+    res.render('pages/index');
 });
 
 //About Page route
-router.get('/about', function(req, res){
-    res.send('About Page');
+router.get('/profile', function(req, res){
+    res.render('pages/profile');
 });
 
-// Contact us route
-router.get('/contact', function(req, res){
-    res.send('Contact Us');
+//route for 404 page
+router.get('*', function(req, res){
+    //console.log('404');
+    res.render('pages/404');
 });
-
+//Source: https://stackoverflow.com/questions/11500204/how-can-i-get-express-js-to-404-only-on-missing-routes/11500298
+//res.render compiles my template
 module.exports = router;
