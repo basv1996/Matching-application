@@ -15,6 +15,13 @@ router.get('/profile', function(req, res){
     });
 });
 
+//Profile Page route
+router.get('/chats', function(req, res){
+    res.render('pages/chats', {
+        title: 'Chats Page'
+    });
+});
+
 //route for 404 page
 router.get('*', function(req, res){
     //console.log('404');

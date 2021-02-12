@@ -5,6 +5,7 @@
 
 const express = require('express');  
 const app = express();  
+const dotenv = require('dotenv').config()
 const path = require('path');
 //const mongo = require('mongodb');
 const port = 8080;
@@ -12,6 +13,7 @@ const router = require('./router/route.js');
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 //using static files
 app.use(express.static(__dirname + "/public"));
