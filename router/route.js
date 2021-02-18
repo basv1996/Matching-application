@@ -22,6 +22,21 @@ router.get('/chats', function(req, res){
     });
 });
 
+//form Route get test
+router.get('/testForm/:fname', function(req, res){
+    res.render('pages/testForm', {
+        title: 'test form submit',
+        output: req.params.fname});
+});
+
+//form Route post test
+router.post('/testForm/submit', function(req, res){
+    //for post request all parameters is sent in the body of the request
+    let name = req.body.fname;
+    console.log(req.body);
+    res.redirect('/testForm/' + name);
+});
+
 //route for 404 page
 router.get('*', function(req, res){
     //console.log('404');

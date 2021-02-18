@@ -4,14 +4,18 @@
  */
 
 const express = require('express');  
-const { Server } = require('http');
+const http  = require('http');
 const app = express();  
 const dotenv = require('dotenv').config()
 const path = require('path');
+const bodyParser = require('body-parser');
 //const mongo = require('mongodb');
-
 const port = 8080;
 const router = require('./router/route.js');
+
+//supporting encoded bodies & json encoded bodies
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
