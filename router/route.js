@@ -39,7 +39,7 @@ router.get('/contact', function(req, res){
 router.post('/contact', function(req, res){
     console.log(req.body);
     res.render('pages/contact', {
-        title: 'contact page',
+        title: 'Succes contact page',
         outcome: req.body
     });
 });
@@ -54,13 +54,13 @@ router.post('/profile', function(req, res){
     });
 });
 
-router.post('profile', upload.single('Avatar'), function(req, res){
-    console.log(req.file);
-    res.render('pages/contact-succes', {
-        title: 'succes page',
-        filledInData: req.body
-    });
-});
+// router.post('profile', upload.single('Avatar'), function(req, res){
+//     console.log(req.file);
+//     res.render('pages/contact-succes', {
+//         title: 'succes page',
+//         filledInData: req.body
+//     });
+// });
 
 
 // //form Route get test

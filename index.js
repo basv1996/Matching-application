@@ -39,7 +39,7 @@ app.use('/', router);
 
 //Error handling
 //this can return any content, but must be valled after all other app.use()
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
     console.error(err.stack);
     res.status(500).send('Something broke!');
   });

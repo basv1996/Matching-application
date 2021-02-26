@@ -7,7 +7,9 @@
   "scripts": {
     "test": "nodemon index.js",
     "start": "node index.js",
-    "install": "node-gyp rebuild"
+    "install": "node-gyp rebuild",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
