@@ -2,7 +2,7 @@
 <head>
 <%- include('../partials/head') %>
 </head>
-<body>
+<body id="homePage">
     <header>
         <%- include('../partials/header') %>
     </header>
@@ -13,14 +13,9 @@
             <!-- foreach user from database Print Profile pic and other data -->
             <h2>Username (From Database)</h2>
             <img src="../img/placeholder-images.png">
-            <a class="matchingButtons" href="">Like</a>
-            <a class="matchingButtons" href="">Dislike</a>
+            <%- include('../partials/form')%>
             <p>Console</p>
             <p>Most Played Game(s)</p>
-        </section>
-        <section>
-         <%- include('../partials/form')%>
-        </form>
         </section>
     </main>
     <footer>

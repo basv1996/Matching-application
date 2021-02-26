@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+<%- include('../partials/head') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <h1>Submitted form page</h1>
+        <section>
+            <p>You submitted the following:</p>
+            <ul>
+                <li><%= filledInData.Firstname %></li>
+                <li><%= filledInData.Age %></li>
+                <li><%= filledInData.Email %></li>
+                <li><%= filledInData.Avatar %></li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+</html>

@@ -11,11 +11,12 @@ const path = require('path');
 const bodyParser = require('body-parser');
 //const mongo = require('mongodb');
 const port = 8080;
-const router = require('./router/route.js');
-
 //supporting encoded bodies & json encoded bodies
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
+const multer = require('multer');
+const upload = multer({ dest: './public/uploads/'})
+const router = require('./router/route.js');
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
