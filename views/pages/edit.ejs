@@ -7,17 +7,12 @@
         <%- include('../partials/header') %>
     </header>
     <main>
-        <h1>Submitted form page</h1>
+        <h1>Editting form page</h1>
         <section>
             <p>You submitted the following:</p>
-            <ul>
-                <li><%= filledInData.Firstname %></li>
-                <li><%= filledInData.Age %></li>
-                <li><%= filledInData.Email %></li>
-                <!-- <li><%= filledInData.profilePic %></li> -->
-            </ul>
+            <%- include('../partials/edit-form') %>
             <button>Confirm</button>
-            <button><a href="/edit">Edit my data</a></button>
+           
         </section>
     </main>
     <footer>

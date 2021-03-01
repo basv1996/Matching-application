@@ -1,0 +1,13 @@
+<!-- action is where it form goes to -->
+<!-- <form method="POST" action="/profile" enctype="multipart/form-data"> -->
+    <form method="POST" action="/profile">
+        <label>What's your name</label>
+        <input type="text" name="Firstname" value="<%= filledInData.Firstname %>">
+        <label>What's your age</label>
+        <input type="number" name="Age" value="<%= filledInData.Age %>">
+        <label>What's your email</label>
+        <input type="email" name="Email" value="<%= filledInData.Email %>">
+        <!-- <label>Your Profile pic</label>
+        <input type="file" name="profilePic" accept="image/*" value=""> -->
+        <button type="submit">submit</button>
+    </form>

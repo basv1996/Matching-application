@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({ dest: './public/uploads/'})
 
 //Home Page route
 router.get('/', function(req, res){
@@ -47,20 +49,51 @@ router.post('/contact', function(req, res){
 
 //route for posting to the contact succes page
 router.post('/profile', function(req, res){
-    console.log(req.body);
+    console.log(req.body); //gives { Firstname: 'Bas', Age: '100', Email: 'iets@mail.com' }
+    let data = req.body;
+    //console.log(req.file);
     res.render('pages/contact-succes', {
     title: 'succes page',
     filledInData: req.body
     });
 });
 
-// router.post('profile', upload.single('Avatar'), function(req, res){
-//     console.log(req.file);
-//     res.render('pages/contact-succes', {
+router.post('/edit', function(req, res){
+    console.log(req.body);
+    res.render('pages/edit', {
+        title: 'Editting page',
+        filledInData: req.body
+    })
+})
+
+router.get('/edit', function(req, res){
+    console.log(req.body);
+    res.render('pages/edit', {
+        title: 'Editting page',
+        filledInData: req.body
+    });
+});
+
+router.put('/edit', function(req, res){
+    res.render('pages/edit', {
+        title: 'Editting page',
+    });
+});
+
+//updating the filled in data
+
+// router.post('/profile', upload.single('profilePic'), function(req, res){
+//      console.log(req.file);
+//      console.log(req.profilePic);
+//         res.render('pages/contact-succes', {
 //         title: 'succes page',
 //         filledInData: req.body
 //     });
 // });
+
+
+//put method = update
+//delete methode = delete
 
 
 // //form Route get test
@@ -78,6 +111,34 @@ router.post('/profile', function(req, res){
 //     res.redirect('/testForm/' + liking );
 //     });
 // }); 
+
+
+//testing out rest API
+//Get a list of the items from DB
+router.get('/LoremIpsum', function(req, res){
+    res.send({type: 'GET'});
+})
+
+//Add new item to DB
+router.post('/LoremIpsum', function(req, res){
+    console.log(req.body);
+    res.send({
+        type: 'POST',
+        Name: req.body.Name,
+        Age: req.body.Age    
+    });
+})
+
+//Update the items from DB
+router.put('/LoremIpsum/:id', function(req, res){
+    res.send({type: 'PUT'});
+})
+
+//Get a list of the items from DB
+router.delete('/LoremIpsum/:id', function(req, res){
+    res.send({type: 'DELETE'});
+})
+
 
 //route for 404 page
 router.get('*', function(req, res){
