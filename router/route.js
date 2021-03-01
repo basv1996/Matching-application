@@ -54,15 +54,12 @@ router.post('/contact', function(req, res){
 //route for posting to the contact succes page
 router.post('/profile', function(req, res){
     console.log(req.body); //gives { Firstname: 'Bas', Age: '100', Email: 'iets@mail.com' }
-
-    const bodyData = req.body
-
+    const bodyData = req.body;
     db.initialize(dbName, collectionName, function(dbCollection) {
         dbCollection.insertOne(bodyData, (error, result) => {
             if (error) throw error
         })
     })
-   
     //console.log(req.file);
     res.render('pages/contact-succes', {
     title: 'succes page',
@@ -70,27 +67,67 @@ router.post('/profile', function(req, res){
     });
 });
 
-router.post('/edit', function(req, res){
-    console.log(req.body);
-    res.render('pages/edit', {
-        title: 'Editting page',
-        filledInData: req.body
+router.get('/profile/:id', function(req, res){
+    console.log("get route with id");
+    const bodyDataID = req.params.id;
+    console.log(req.params);
+    console.log(bodyDataID);
+    db.initialize(dbName, collectionName, function(dbCollection) {
+    dbCollection.findOne(
+        {id: bodyDataID },
+         function(error, result){
+        if(error) throw error;
+        //return item
     })
-})
-
-router.get('/edit', function(req, res){
-    console.log(req.body);
-    res.render('pages/edit', {
-        title: 'Editting page',
-        filledInData: req.body
+        res.json(result);
     });
 });
 
-router.put('/edit', function(req, res){
-    res.render('pages/edit', {
-        title: 'Editting page',
+router.put('profile/:id', function(req, res){
+    const bodyDataID = req.params.id; 
+    const bodyData = req.body;
+    console.log("Editing item: ", bodyDataID, " to be ", bodyData);
+    db.initialize(dbName, collectionName, function(dbCollection) {
+        dbCollection.updateOne(
+            {id: bodyDataID }, 
+            { $set: bodyData }, 
+            function(error, result){
+            if (error) throw error;
+            // send back entire updated list, to make sure frontend data is up-to-date
+            dbCollection.find().toArray(function(_error, _result){
+                if (_error) throw _error;
+            res.json(_result);
+            })
+        });
     });
 });
+
+router.delete('profile/:id', function(req, res){
+    const bodyDataID = req.params.id;
+    console.log("Delete item with id: " + bodyDataID);
+    db.initialize(dbName, collectionName, function(dbCollection) {
+        dbCollection.deleteOne(
+            {id: bodyDataID }, 
+            function(error, result){
+                if (error) throw error;
+                // send back entire updated list after successful request
+                dbCollection.find().toArray(function(_error, _result) {
+                    if (_error) throw _error;
+                    res.json(_result);
+             });
+         });
+    });
+});
+
+// router.post('/edit', function(req, res){
+//     console.log(req.body);
+//     res.render('pages/edit', {
+//         title: 'Editting page',
+//         filledInData: req.body
+//     })
+// })
+
+
 
 //updating the filled in data
 
