@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: './public/uploads/'})
+const Person = require('../models/model.js');
+const db = require('../models/connect');
+const dbName = process.env.DB_NAME;
+const collectionName = process.env.COLLECTION_NAME;
 
 //Home Page route
 router.get('/', function(req, res){
@@ -50,7 +54,15 @@ router.post('/contact', function(req, res){
 //route for posting to the contact succes page
 router.post('/profile', function(req, res){
     console.log(req.body); //gives { Firstname: 'Bas', Age: '100', Email: 'iets@mail.com' }
-    let data = req.body;
+
+    const bodyData = req.body
+
+    db.initialize(dbName, collectionName, function(dbCollection) {
+        dbCollection.insertOne(bodyData, (error, result) => {
+            if (error) throw error
+        })
+    })
+   
     //console.log(req.file);
     res.render('pages/contact-succes', {
     title: 'succes page',
@@ -121,13 +133,10 @@ router.get('/LoremIpsum', function(req, res){
 
 //Add new item to DB
 router.post('/LoremIpsum', function(req, res){
-    console.log(req.body);
-    res.send({
-        type: 'POST',
-        Name: req.body.Name,
-        Age: req.body.Age    
-    });
-})
+    Person.create(req.body).then(function(person){
+        res.send(person);
+    }); 
+});
 
 //Update the items from DB
 router.put('/LoremIpsum/:id', function(req, res){

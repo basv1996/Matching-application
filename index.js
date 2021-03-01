@@ -6,17 +6,35 @@
 const express = require('express');  
 const http  = require('http');
 const app = express();  
-const dotenv = require('dotenv').config()
+//const dotenv = require('dotenv').config();
+const dotenv = require('dotenv');
+const dotenvExpand = require('dotenv-expand');
+const myEnv = dotenv.config();
+dotenvExpand(myEnv);
 const path = require('path');
 const bodyParser = require('body-parser');
-//const mongo = require('mongodb');
-const mongoose = require('mongoose');
+
 const port = 8080;
 //supporting encoded bodies & json encoded bodies
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const router = require('./router/route.js');
+
+const db = require('./models/connect');
+const dbName = process.env.DB_NAME;
+const collectionName = process.env.COLLECTION_NAME;
+
+db.initialize(dbName, collectionName, function(dbCollection) {
+
+    dbCollection.find().toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+    })
+}, function(err) {
+    throw (err);
+});
+
 
 
 // set the view engine to ejs
@@ -45,9 +63,6 @@ app.use('/', router);
 //serving static files
 //app.use(express.static('public'));
 
-//connect to mongodb
-mongoose.connect('mongodb://localhost/projectTechDB');
-mongoose.Promise = global.Promise;
 
 //Error handling
 //this can return any content, but must be valled after all other app.use()
