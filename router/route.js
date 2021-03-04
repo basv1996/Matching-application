@@ -1,11 +1,14 @@
+const { response } = require('express');
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: './public/uploads/'})
-const Person = require('../models/model.js');
+
+let data;
 const db = require('../models/connect');
 const dbName = process.env.DB_NAME;
 const collectionName = process.env.COLLECTION_NAME;
+
 
 //Home Page route
 router.get('/', function(req, res){
@@ -21,27 +24,28 @@ router.get('/profile', function(req, res){
     });
 });
 
-//Personal Profile page
-router.get('/profile/:username', function(req, res){
-    res.render('pages/profile', {
-        title: req.params.username + ' ' + 'Profiles page',
-        person: req.params.username
-    });
-})
-
-//Profile Page route
+//Chat Page route
 router.get('/chats', function(req, res){
     res.render('pages/chats', {
         title: 'Chats Page'
     });
 });
 
+//Contact Page route
 router.get('/contact', function(req, res){
     res.render('pages/contact', {
         title: 'contact page',
     });
 });
 
+//Matches Page route
+router.get('/matches', function(req, res){
+    res.render('pages/matches', {
+        title: 'My matches',
+    });
+});
+
+// kan hier alleen op komen nadat je hebt gesubmit
 router.post('/contact', function(req, res){
     console.log(req.body);
     res.render('pages/contact', {
@@ -51,139 +55,161 @@ router.post('/contact', function(req, res){
 });
 
 
-//route for posting to the contact succes page
+//Create entry into database
 router.post('/profile', function(req, res){
-    console.log(req.body); //gives { Firstname: 'Bas', Age: '100', Email: 'iets@mail.com' }
+    console.log("the body data from post outside function is: ", req.body); //gives { Firstname: 'Bas', Age: '100', Email: 'iets@mail.com' }
     const bodyData = req.body;
     db.initialize(dbName, collectionName, function(dbCollection) {
         dbCollection.insertOne(bodyData, (error, result) => {
             if (error) throw error
-        })
-    })
-    //console.log(req.file);
-    res.render('pages/contact-succes', {
-    title: 'succes page',
-    filledInData: req.body
-    });
-});
-
-router.get('/profile/:id', function(req, res){
-    console.log("get route with id");
-    const bodyDataID = req.params.id;
-    console.log(req.params);
-    console.log(bodyDataID);
-    db.initialize(dbName, collectionName, function(dbCollection) {
-    dbCollection.findOne(
-        {id: bodyDataID },
-         function(error, result){
-        if(error) throw error;
-        //return item
-    })
-        res.json(result);
-    });
-});
-
-router.put('profile/:id', function(req, res){
-    const bodyDataID = req.params.id; 
-    const bodyData = req.body;
-    console.log("Editing item: ", bodyDataID, " to be ", bodyData);
-    db.initialize(dbName, collectionName, function(dbCollection) {
-        dbCollection.updateOne(
-            {id: bodyDataID }, 
-            { $set: bodyData }, 
-            function(error, result){
-            if (error) throw error;
-            // send back entire updated list, to make sure frontend data is up-to-date
-            dbCollection.find().toArray(function(_error, _result){
-                if (_error) throw _error;
-            res.json(_result);
-            })
+            console.log("the body data from post within function is: ", bodyData); // gives { Firstname: 'Bas', Age: '100', Email: 'iets@mail.com' }
+                   res.render('pages/contact-succes', {
+                  title: 'succes page',
+                  //filledInData: req.body
+                  data: bodyData
+                 });
+            });
         });
     });
-});
 
-router.delete('profile/:id', function(req, res){
-    const bodyDataID = req.params.id;
-    console.log("Delete item with id: " + bodyDataID);
+//Read 1 entry from database
+//When I click on edit then this route get excecuted
+router.get('/edit/:email', function(req, res){
+    const userEmail = req.params.email;
+    console.log("usermail is: ", userEmail);
     db.initialize(dbName, collectionName, function(dbCollection) {
-        dbCollection.deleteOne(
-            {id: bodyDataID }, 
-            function(error, result){
-                if (error) throw error;
-                // send back entire updated list after successful request
-                dbCollection.find().toArray(function(_error, _result) {
-                    if (_error) throw _error;
-                    res.json(_result);
-             });
-         });
-    });
-});
-
-// router.post('/edit', function(req, res){
-//     console.log(req.body);
-//     res.render('pages/edit', {
-//         title: 'Editting page',
-//         filledInData: req.body
-//     })
-// })
+             dbCollection.findOne(
+                 {Email: userEmail}, 
+                 function(error, result){
+                     if (error) throw error;
+                     //return item
+                     //res.json(result)
+                     res.render('pages/edit', {
+                         title: 'edit user: ' + userEmail ,
+                            data: result
+                         });
+                 });
+                });
+            });
 
 
+//Update one entry from database
+router.put('/edit/:email', function(req, res){     
+    const userEmail = req.params.email;
+    const updatedUser = req.body;
+    console.log("Editing user: ", userEmail, " to become ", updatedUser);
+    db.initialize(dbName, collectionName, function(dbCollection) {
+             dbCollection.updateOne(
+                 {Email: userEmail},
+                 {$set: updatedUser},
+                 function(error, result){
+                     if (error) throw error;
+                     // send back entire updated list, to make sure frontend data is up-to-date
+                       dbCollection.find().toArray(function(_error, _result) {
+                        if (_error) throw _error;
+                       res.json(_result);
+                 });
+                });
+            });
+        });
+             
+             
 
-//updating the filled in data
+// //read all entries from database
+// router.get('/everybody', function(req, res){
+//     db.initialize(dbName, collectionName, function(dbCollection) { //succes callback
+//         //get all items
+//         const bodyData = req.body;
+//         dbCollection.find().toArray(function(error, result){
+//             if (error) throw error; 
+//             data = result;  
+//             console.log("dit is ",result);
+//         });
+//                 const naam = bodyData.Firstname;
+//                 const age = bodyData.age;
+//                 const email = bodyData.email;
+//                 res.render('pages/allUsers', {
+//                     title: 'all users',
+//                     filterData: data,
+//                     username: naam,
+//                     age: age,
+//                     email: email
+//                 });
+//             }, function(error) { // failureCallback
+//                 throw (error);
+//             });
+//         });
 
-// router.post('/profile', upload.single('profilePic'), function(req, res){
-//      console.log(req.file);
-//      console.log(req.profilePic);
-//         res.render('pages/contact-succes', {
-//         title: 'succes page',
-//         filledInData: req.body
+
+
+// //read one entry from database
+// router.get('/edit/:email', function(req, res){
+//     console.log("get route with email");
+//     const bodyDataEmail = req.params.email;
+//     console.log("read one entry requestes parameters are: ", req.params); // gives { id: 'the input from the url after profile/'}
+//     console.log("read one entry bodyDataEmail is: ", bodyDataEmail); // gives the input from the url after profile/
+//     console.log("read one entry requestes params.age: ", req.params.age); // empty object
+//     db.initialize(dbName, collectionName, function(dbCollection) {
+//     dbCollection.findOne(
+//         {email: bodyDataEmail },
+//          function(error, result){
+//         if(error) throw error
+//         data = result;
+//         //return item
+//         // res.render('pages/edit', {
+//         //     title: 'edit page',
+//         //     data: result
+//         //     });
+//         res.json(data);
+//         });
 //     });
 // });
 
 
-//put method = update
-//delete methode = delete
-
-
-// //form Route get test
-// router.get('/testForm/:like', function(req, res){
-//     res.render('pages/testForm', {
-//         title: 'test form submit',
-//         output: req.params.like});
+// //Update an entry from the database
+// router.put('edit/:id', function(req, res){
+//     const bodyDataID = req.params.id; 
+//     const bodyData = req.body;
+//     console.log("Editing item: ", bodyDataID, " to be ", bodyData);
+//     db.initialize(dbName, collectionName, function(dbCollection) {
+//         dbCollection.updateOne(
+//             {id: bodyDataID }, 
+//             { $set: bodyData }, 
+//             function(error, result){
+//             if (error) throw error;
+//             // send back entire updated list, to make sure frontend data is up-to-date
+//             dbCollection.find().toArray(function(_error, _result){
+//                 if (_error) {
+//                     throw _error
+//                 } else {
+//                         //res.json(result);
+//                         res.render('pages/edit', {
+//                             title: 'edit page',
+//                             data: result
+//                             })
+//                     }
+//             })
+//         });
+//     });
 // });
 
-// //form Route post test
-// router.post('/testForm/submit', function(req, res){
-//     //for post request all parameters is sent in the body of the reques
-//     router.post('/testForm/submit', function(req, res){
-//     const liking = req.body;
-//     res.redirect('/testForm/' + liking );
+// //delete an entry from the database
+// router.delete('profile/:id', function(req, res){
+//     const bodyDataID = req.params.id;
+//     console.log("Delete item with id: " + bodyDataID);
+//     db.initialize(dbName, collectionName, function(dbCollection) {
+//         dbCollection.deleteOne(
+//             {id: bodyDataID }, 
+//             function(error, result){
+//                 if (error) throw error;
+//                 // send back entire updated list after successful request
+//                 dbCollection.find().toArray(function(_error, _result) {
+//                     if (_error) throw _error;
+//                     res.json(_result);
+//              });
+//          });
 //     });
-// }); 
-
-
-//testing out rest API
-//Get a list of the items from DB
-router.get('/LoremIpsum', function(req, res){
-    res.send({type: 'GET'});
-})
-
-//Add new item to DB
-router.post('/LoremIpsum', function(req, res){
-    Person.create(req.body).then(function(person){
-        res.send(person);
-    }); 
-});
-
-//Update the items from DB
-router.put('/LoremIpsum/:id', function(req, res){
-    res.send({type: 'PUT'});
-})
-
-//Get a list of the items from DB
-router.delete('/LoremIpsum/:id', function(req, res){
-    res.send({type: 'DELETE'});
-})
+// });
 
 
 //route for 404 page

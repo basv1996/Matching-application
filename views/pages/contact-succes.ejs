@@ -11,13 +11,15 @@
         <section>
             <p>You submitted the following:</p>
             <ul>
-                <li><%= filledInData.Firstname %></li>
-                <li><%= filledInData.Age %></li>
-                <li><%= filledInData.Email %></li>
-                <!-- <li><%= filledInData.profilePic %></li> -->
+                <li><b>Name:</b> <%= data.Firstname %></li>
+                <li><b>Age</b>: <%= data.Age %></li>
+                <li><b>Email:</b> <%= data.Email %></li>
+                <li><b>My console:</b> <%= data.console %></li>
+                <!-- <li><%= //filledInData.profilePic %></li> -->
             </ul>
             <button>Confirm</button>
-            <button><a href="/edit">Edit my data</a></button>
+            <!-- <button><a href="/edit?id<%= //filledInData[i].firstName %>">Edit my data</a></button> -->
+            <button><a href="/edit/<%= data.Email %>">Edit my data</a></button>
         </section>
     </main>
     <footer>

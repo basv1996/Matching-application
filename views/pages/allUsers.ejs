@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+<%- include('../partials/head') %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <h1>Displaying all users here  </h1>
+        <section>
+           <% for(var i =0; i< users.length; i++) {%>
+                <article class="userCard">
+                  <p class="userName">name: <span><%= username.Firstname %></span> </p>
+                  <p class="userAge">age: <span><%= age.age %></span> </p>
+                  <p class="userGender"><%= email.email %></p>rs
+            
+                </article>
+               <% } %>
+        </section>
+    </main>
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+</body>
+</html>

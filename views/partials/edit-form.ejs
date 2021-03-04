@@ -2,12 +2,19 @@
 <!-- <form method="POST" action="/profile" enctype="multipart/form-data"> -->
     <form method="POST" action="/profile">
         <label>What's your name</label>
-        <input type="text" name="Firstname" value="<%= filledInData.Firstname %>">
+        <input type="text" name="Firstname" value="<%= data.Firstname %>">
         <label>What's your age</label>
-        <input type="number" name="Age" value="<%= filledInData.Age %>">
+        <input type="number" name="Age" value="<%= data.Age %>">
+        <label>On which console do you play</label>
+    <select type="text" name="console" value="">
+        <option value="<%= data.console %>" name="Playstation">Playstation</option>
+        <option value="Xbox" name="Xbox">Xbox</option>
+        <option value="PC" name="PC">PC</option>
+        <option value="Nintendo" name="Nintendo">Nintendo</option>
+      </select>  
         <label>What's your email</label>
-        <input type="email" name="Email" value="<%= filledInData.Email %>">
+        <input type="email" name="Email" value="<%= data.Email %>">
         <!-- <label>Your Profile pic</label>
         <input type="file" name="profilePic" accept="image/*" value=""> -->
-        <button type="submit">submit</button>
+        <button type="submit">Change</button>
     </form>

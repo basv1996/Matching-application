@@ -54,16 +54,6 @@ app.listen(port, function() {
 app.use('/', router);
 
 
-// posting images or something
-// app.post('/profile', upload.single('profilePic'), function add(req, res) {
-//     console.log("the uploaded post route gives " + req.body);
-//     console.log("the uploaded post route gives " + req.file);
-// });
-
-//serving static files
-//app.use(express.static('public'));
-
-
 //Error handling
 //this can return any content, but must be valled after all other app.use()
 app.use(function(err, req, res) {

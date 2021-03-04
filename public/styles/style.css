@@ -89,3 +89,11 @@ main {
 #homePage main section form button {
     display: none;
 }
+
+form {
+    width: 100%;
+}
+
+form input, form label {
+    width: 100%;
+}
