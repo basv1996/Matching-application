@@ -8,6 +8,8 @@ let data;
 const db = require('../models/connect');
 const dbName = process.env.DB_NAME;
 const collectionName = process.env.COLLECTION_NAME;
+const  ObjectID = require('mongodb').ObjectID;
+
 
 
 //Home Page route
@@ -60,9 +62,9 @@ router.post('/profile', function(req, res){
     console.log("the body data from post outside function is: ", req.body); //gives { Firstname: 'Bas', Age: '100', Email: 'iets@mail.com' }
     const bodyData = req.body;
     db.initialize(dbName, collectionName, function(dbCollection) {
-        dbCollection.insertOne(bodyData, (error, result) => {
+        dbCollection.insertOne(bodyData, function(error, result) {
             if (error) throw error
-            console.log("the body data from post within function is: ", bodyData); // gives { Firstname: 'Bas', Age: '100', Email: 'iets@mail.com' }
+            console.log("the body data from post within function is: ", bodyData); // gives { Firstname: 'Bas', Age: '100', Email: 'iets@mail.com', _id: 60674738638ABVAVAVA }
                    res.render('pages/contact-succes', {
                   title: 'succes page',
                   //filledInData: req.body
@@ -72,18 +74,33 @@ router.post('/profile', function(req, res){
         });
     });
 
+
+
 //Read 1 entry from database
 //When I click on edit then this route get excecuted
+//this one works
 router.get('/edit/:email', function(req, res){
+    console.log("Je zit nu in de get route voor findOne()");
+    const bodyData = {
+        id: req.body.ID,
+        name: req.body.Firstname,
+        age: req.body.Age,
+        console: req.body.console,
+        email: req.body.Email
+    }
+    console.log("de body data is gelijk aan: ", bodyData);
     const userEmail = req.params.email;
-    console.log("usermail is: ", userEmail);
     db.initialize(dbName, collectionName, function(dbCollection) {
              dbCollection.findOne(
                  {Email: userEmail}, 
                  function(error, result){
+                     console.log("de body data is gelijk aan: ", bodyData);
+                     console.log("req params binnen in functie =: ", req.params); //{ email: 'bas.vugts@gmail.com' }
+                     console.log("userID binnen in functie =: ", userEmail); // bas.vugts@gmail.com
+                    console.log("result items are: ", result); // {_id: 6040e6962454530c304d41d9, Firstname: 'blbla', Age: '20' etc etc}
+                    console.log("Result.id is gelijk: ", result._id);
+                   
                      if (error) throw error;
-                     //return item
-                     //res.json(result)
                      res.render('pages/edit', {
                          title: 'edit user: ' + userEmail ,
                             data: result
@@ -93,27 +110,104 @@ router.get('/edit/:email', function(req, res){
             });
 
 
-//Update one entry from database
-router.put('/edit/:email', function(req, res){     
-    const userEmail = req.params.email;
-    const updatedUser = req.body;
-    console.log("Editing user: ", userEmail, " to become ", updatedUser);
+
+router.post('/update', function(req, res){
+    const updatedUser = {
+        id: req.body.ID,
+        Firstname: req.body.Firstname,
+        Age: req.body.Age,
+        console: req.body.console,
+        Email: req.body.Email
+    }
+    const updatedUserID = typeof(req.body.ID);
+    const newUserID = ObjectID(req.body.ID);
+
     db.initialize(dbName, collectionName, function(dbCollection) {
-             dbCollection.updateOne(
-                 {Email: userEmail},
-                 {$set: updatedUser},
-                 function(error, result){
-                     if (error) throw error;
-                     // send back entire updated list, to make sure frontend data is up-to-date
-                       dbCollection.find().toArray(function(_error, _result) {
-                        if (_error) throw _error;
-                       res.json(_result);
-                 });
-                });
+                      dbCollection.findOneAndUpdate({"_id": newUserID}, {$set: updatedUser},function(error, result){
+                          if (error) throw error;
+                          res.redirect('/allUsers');
+});
+    });
+});
+
+
+
+             
+//Display all users from database
+router.get('/allUsers', function(req, res){
+   
+    db.initialize(dbName, collectionName, function(dbCollection) {
+        dbCollection.find().toArray(function(error, result){
+            if (error) throw error;
+                data = result;
+                res.render('pages/allUsers', {
+                    title: 'all users',
+                    data: result
+                })
             });
-        });
-             
-             
+        })
+})    
+
+//deleting a single user
+// router.delete('/delete/:email', function(req, res){
+//     const userEmail = req.params.email;
+//     console.log("Delete item with email: ", userEmail);
+//     db.initialize(dbName, collectionName, function(dbCollection) {
+//       dbCollection.deleteOne({"Email": userEmail}, function(error, result){
+//           if (error) throw error;
+//           dbCollection.find().toArray(function(_error, _result){
+//               if (_error) throw _error;
+//           res.json(_result);
+//       });
+// });
+// });
+// });
+
+router.delete('/delete/:id', function(req, res){
+    const userID = req.params.id;
+    console.log("Delete item with email: ", userID);
+    db.initialize(dbName, collectionName, function(dbCollection) {
+      dbCollection.deleteOne({"_id": userID}, function(error, result){
+          if (error) throw error;
+          dbCollection.find().toArray(function(_error, _result){
+              if (_error) throw _error;
+          res.json(_result);
+      });
+});
+});
+});
+
+// router.post('/delete/:email', function(req, res){
+//     const updatedUser = {
+//         userID: req.body.userID,
+//         name: req.body.Firstname,
+//         age: req.body.Age,
+//         console: req.body.console,
+//         email: req.body.Email
+//     }
+
+//     const userEmail = req.body.Email;
+//     const bodyData = req.body;
+//     const paraEmail = req.params.email;
+//     console.log("Delete item with email: ", paraEmail);
+//     db.initialize(dbName, collectionName, function(dbCollection) {
+//       dbCollection.deleteOne({email: userEmail}, function(error, result){
+//           if (error) throw error;
+//           dbCollection.find().toArray(function(_error, _result){
+//               if (_error) throw _error;
+//           //res.json(_result);
+//           console.log("user data updated is: ", updatedUser)
+//           console.log("user email is: ", userEmail);
+//           console.log("body data is: ", bodyData);
+//           console.log("req param is: ", paraEmail);
+//           res.render('pages/delete-succes', {
+//             title: 'delete succes',
+//             updatedUser: updatedUser
+//           });
+//       });
+// });
+// });
+// });
 
 // //read all entries from database
 // router.get('/everybody', function(req, res){

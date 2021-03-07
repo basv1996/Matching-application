@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+// assert checked of een functie outcome true of false is. Bij true runt die de functie en bij false geeft die een error
 
 // Connection URL
 const url = process.env.DB_URL;

@@ -18,6 +18,7 @@ const port = 8080;
 //supporting encoded bodies & json encoded bodies
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
+const methodOverride = require('method-override');
 
 const router = require('./router/route.js');
 
@@ -44,6 +45,9 @@ app.set('views', path.join(__dirname, 'views'));
 //using static files
 app.use(express.static(__dirname + "/public"));
 //app.use("/public", express.static(__dirname + "/public"));
+
+//override that shit
+app.use(methodOverride('_method'));
 
 app.listen(port, function() {
 //watch out, there are different quotes here
