@@ -9,10 +9,26 @@
     <main>
         <h1>All my matches page</h1>
         <section>
-            <p>I matched with:</p>
-           
-               
-        </section>
+            <% for(let i =0; i< data.length; i++) { 
+                if(data[i].Like == "True"){
+                %>
+
+             <article class="userCards">
+             <p class="name"><b>Name: </b> <%= data[i].Firstname %> </p>
+             <p class="age"><b>Age: </b> <%= data[i].Age %> </p>
+             <p class="console"><b>Console: </b> <%= data[i].console %> </p>
+             <p class="email"><b>Email: </b> <%= data[i].Email %> </p>
+
+             <form class="LikeMe" method="POST" action="/Dislike">
+                 <input type="hidden" name="ID" value="<%= data[i]._id %>">
+                 <input type="submit" value="Dislike">
+                 </form>
+             </article>
+             <% } 
+            } %>
+                 </article>
+                
+         </section>
     </main>
     <footer>
         <%- include('../partials/footer') %>

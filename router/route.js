@@ -26,40 +26,37 @@ router.get('/profile', function(req, res){
     });
 });
 
-//Chat Page route
-router.get('/chats', function(req, res){
-    res.render('pages/chats', {
-        title: 'Chats Page'
-    });
-});
-
-//Contact Page route
-router.get('/contact', function(req, res){
-    res.render('pages/contact', {
-        title: 'contact page',
-    });
-});
 
 //Matches Page route
 router.get('/matches', function(req, res){
-    res.render('pages/matches', {
-        title: 'My matches',
-    });
+    db.initialize(dbName, collectionName, function(dbCollection) {
+        dbCollection.find().toArray(function(error, result){
+            if (error) throw error;
+                data = result;
+                res.render('pages/matches', {
+                    title: 'matched users',
+                    data: result
+                })
+            });
+        })
 });
 
-// kan hier alleen op komen nadat je hebt gesubmit
-router.post('/contact', function(req, res){
-    console.log(req.body);
-    res.render('pages/contact', {
-        title: 'Succes contact page',
-        outcome: req.body
-    });
-});
+
+
 
 
 //Create entry into database
 router.post('/profile', function(req, res){
-    const bodyData = req.body;
+    const bodyData = {
+        Firstname: req.body.Firstname,
+        Age: req.body.Age,
+        console: req.body.console,
+        Email: req.body.Email,
+        Dislike: req.body.Dislike,
+        Like: req.body.Like
+    }
+   
+    console.log("body data :", bodyData);
     db.initialize(dbName, collectionName, function(dbCollection) {
         dbCollection.insertOne(bodyData, function(error, result) {
             if (error) throw error
@@ -84,7 +81,9 @@ router.get('/edit/:email', function(req, res){
         Firstname: req.body.Firstname,
         Age: req.body.Age,
         console: req.body.console,
-        Email: req.body.Email
+        Email: req.body.Email,
+        Dislike: req.body.Dislike,
+        Like: req.body.Like
     }
     const userEmail = req.params.email;
     const bodyDataID = ObjectID(req.body.ID);;
@@ -108,9 +107,10 @@ router.post('/update', function(req, res){
         Firstname: req.body.Firstname,
         Age: req.body.Age,
         console: req.body.console,
-        Email: req.body.Email
+        Email: req.body.Email,
+        Dislike: req.body.Dislike,
+        Like: req.body.Like
     }
-    //const updatedUserID = typeof(req.body.ID);
     const DBUserID = ObjectID(req.body.ID);
 
     db.initialize(dbName, collectionName, function(dbCollection) {
@@ -121,6 +121,37 @@ router.post('/update', function(req, res){
     });
 });
 
+//liking a profile 
+router.post('/like', function(req, res){
+    const LikeMe = {
+        Like: "True",
+        Dislike: "False"
+    }
+    const DBUserID = ObjectID(req.body.ID);
+
+    db.initialize(dbName, collectionName, function(dbCollection) {
+                      dbCollection.findOneAndUpdate({"_id": DBUserID}, {$set: LikeMe},function(error, result){
+                          if (error) throw error;
+                          res.redirect('/allUsers');
+        });
+    });
+});
+
+//disliking a profile
+router.post('/Dislike', function(req, res){
+    const DislikeMe = {
+        Dislike: "True",
+        Like: "False"
+    }
+    const DBUserID = ObjectID(req.body.ID);
+    db.initialize(dbName, collectionName, function(dbCollection) {
+                      dbCollection.findOneAndUpdate({"_id": DBUserID}, {$set: DislikeMe},function(error, result){
+                          if (error) throw error;
+                          //res.redirect('/allUsers');
+                          res.redirect('matches');
+        });
+    });
+});
 
 
              

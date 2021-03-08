@@ -9,7 +9,9 @@
     <main>
         <h1>Displaying all users here  </h1>
         <section>
-           <% for(let i =0; i< data.length; i++) {%>
+           <% for(let i =0; i< data.length; i++) {
+            if(data[i].Like == "False"){
+            %>
             <article class="userCards">
             <p class="name"><b>Name: </b> <%= data[i].Firstname %> </p>
             <p class="age"><b>Age: </b> <%= data[i].Age %> </p>
@@ -27,7 +29,8 @@
             </form>
             
             </article>
-            <% } %>
+            <% } 
+            }%>
                 </article>
                
         </section>
