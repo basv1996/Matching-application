@@ -2,7 +2,7 @@
   "name": "project-tech",
   "version": "1.0.0",
   "engines": {
-    "node": "15.8.0"
+    "node": "15.x.x"
   },
   "description": "this is a project for block-tech",
   "homepage": "https://github.com/basv1996/Matching-application",
