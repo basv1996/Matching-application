@@ -63,7 +63,7 @@ router.post('/profile', function(req, res){
     db.initialize(dbName, collectionName, function(dbCollection) {
         dbCollection.insertOne(bodyData, function(error, result) {
             if (error) throw error
-                   res.render('pages/contact-succes', {
+                   res.render('pages/addUser-succes', {
                   title: 'succes page',
                   //filledInData: req.body
                   data: bodyData
@@ -153,11 +153,8 @@ const DBUserID = ObjectID(req.body.ID);
 db.initialize(dbName, collectionName, function(dbCollection) {
                   dbCollection.deleteOne({"_id": DBUserID}, function(error, result){
                       if (error) throw error;
-                      console.log("delete usr id type of: ", DeleteUserID);
-                      console.log("db user id: ", DBUserID);
-                      res.render('pages/allUsers', {
-                        title: 'all users',
-                        data: result
+                      res.render('pages/delete-succes', {
+                        title: 'Delete was succesfull'
                       });
 });
 });

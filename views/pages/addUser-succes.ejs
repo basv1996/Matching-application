@@ -9,7 +9,7 @@
     <main>
         <h1>Submitted form page</h1>
         <section>
-            <p>You submitted the following:</p>
+            <h2>You submitted the following Data:</h2>
             <ul>
                 <li><b>Name:</b> <%= data.Firstname %></li>
                 <li><b>Age</b>: <%= data.Age %></li>
@@ -17,7 +17,7 @@
                 <li><b>My console:</b> <%= data.console %></li>
                 <!-- <li><%= //filledInData.profilePic %></li> -->
             </ul>
-            <button>Confirm</button>
+            <button><a href="/allUsers">Confirm</a></button>
             <!-- <button><a href="/edit?id<%= //filledInData[i].firstName %>">Edit my data</a></button> -->
             <button><a href="/edit/<%= data.Email %>">Edit my data</a></button>
         </section>
