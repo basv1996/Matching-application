@@ -1,5 +1,4 @@
 <!-- action is where it form goes to -->
-<!-- <form method="POST" action="/profile" enctype="multipart/form-data"> -->
     <form method="POST" action="/update">
         <p>data id: <%= data._id %></p>
         <input type="hidden" name="ID" value="<%= data._id %>">
@@ -16,7 +15,5 @@
       </select>  
         <label>What's your email</label>
         <input type="email" name="Email" value="<%= data.Email %>">
-        <!-- <label>Your Profile pic</label>
-        <input type="file" name="profilePic" accept="image/*" value=""> -->
         <button type="submit">Change</button>
     </form>

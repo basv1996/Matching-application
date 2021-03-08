@@ -16,19 +16,16 @@
            <p>data map: <%= //data.map(x => x); %> </p>
            <% for(var i =0; i< data.length; i++) {%>
             <article>
+            <p> <%= data[i]._id %> </p> 
             <p> <%= data[i].Firstname %> </p>
             <p> <%= data[i].Age %> </p>
             <p> <%= data[i].console %> </p>
             <p> <%= data[i].Email %> </p>
             <button><a href="/edit/<%= data[i].Email %>">Edit my data</a></button>
-            <button><a href="/edit/<%= //data[i]._id %>">Edit ID my data</a></button>
+            <button><a href="/edit/<%= data[i]._id %>">Edit ID my data</a></button>
             <%- //include('../partials/deleteForm'); %>
-            <!-- <form method="POST" action="/delete/<%= //data[i].Email %>">
-                <input type="hidden" name="Email" value="<%= //data.Email %>">
-                <input type="submit" value="verwijder die shit">
-            </form> -->
-            <form method="POST" action="/delete/<%= data[i]._id %>">
-                <input type="hidden" name="Email" value="<%= data._id %>">
+            <form method="POST" action="/delete">
+                <input type="hidden" name="ID" value="<%= data[i]._id %>">
                 <input type="submit" value="verwijder die shit">
             </form>
             </article>
