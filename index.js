@@ -8,9 +8,6 @@ const http  = require('http');
 const app = express();  
 //const dotenv = require('dotenv').config();
 require('dotenv').config();
-const dotenvExpand = require('dotenv-expand');
-const myEnv = dotenv.config();
-dotenvExpand(myEnv);
 const path = require('path');
 const bodyParser = require('body-parser');
 
