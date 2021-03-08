@@ -7,7 +7,7 @@ const express = require('express');
 const http  = require('http');
 const app = express();  
 //const dotenv = require('dotenv').config();
-const dotenv = require('dotenv');
+require('dotenv').config();
 const dotenvExpand = require('dotenv-expand');
 const myEnv = dotenv.config();
 dotenvExpand(myEnv);
