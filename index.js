@@ -11,7 +11,7 @@ require('dotenv').config();
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 //supporting encoded bodies & json encoded bodies
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
