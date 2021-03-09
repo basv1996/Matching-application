@@ -17,6 +17,8 @@
             <p class="age"><b>Age: </b> <%= data[i].Age %> </p>
             <p class="console"><b>Console: </b> <%= data[i].console %> </p>
             <p class="email"><b>Email: </b> <%= data[i].Email %> </p>
+            <p class="Like"><b>Like: </b> <%= data[i].Like %> </p>
+            <p class="Dislike"><b>Dislike: </b> <%= data[i].Dislike %> </p>
             <button><a href="/edit/<%= data[i].Email %>">Edit my data</a></button>
             <form class="LikeMe" method="POST" action="/like">
                 <input type="hidden" name="ID" value="<%= data[i]._id %>">

@@ -86,7 +86,8 @@ router.get('/edit/:email', function(req, res){
         Like: req.body.Like
     }
     const userEmail = req.params.email;
-    const bodyDataID = ObjectID(req.body.ID);;
+    const bodyDataID = ObjectID(req.body.ID);
+    console.log("the body inside get one contains: ", bodyData);
     db.initialize(dbName, collectionName, function(dbCollection) {
              dbCollection.findOne(
                  {Email: userEmail}, 
@@ -112,7 +113,7 @@ router.post('/update', function(req, res){
         Like: req.body.Like
     }
     const DBUserID = ObjectID(req.body.ID);
-
+console.log("the body inside update contains: ", updatedUser);
     db.initialize(dbName, collectionName, function(dbCollection) {
                       dbCollection.findOneAndUpdate({"_id": DBUserID}, {$set: updatedUser},function(error, result){
                           if (error) throw error;
