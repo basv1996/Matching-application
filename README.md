@@ -8,9 +8,9 @@ The idea of my matching application is to find new friends for gamers. Most game
 > Match with other gamer that have the same console and play the same games as yourself
 # Job story
 For this matching application for gamers I worked on the following job story.  
-```
-`When I` see someone who I fancy on the matchin application based on my preferences `I want to` be able to like this person `So I can` later on look at all my likes in a overview list.
-```
+
+> `When I` see someone who I fancy on the matchin application based on my preferences `I want to` be able to like this person `So I can` later on look at all my likes in a overview list.
+
 
 # DataModel
 ![DataModel for my database in mongoDB](https://github.com/basv1996/Matching-application/blob/main/public/img/imgWiki/DB_DataModel_mongo.png)
