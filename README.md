@@ -39,3 +39,6 @@ npm run start
 The application will be running on port 8080. So you'll have to go to localhost:8080
 # License
 MIT
+
+# Sources
+[Resources](https://github.com/basv1996/Matching-application/wiki/Resources)
