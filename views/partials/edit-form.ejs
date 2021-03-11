@@ -1,19 +1,27 @@
-    <form method="POST" action="/update">
-        <input type="hidden" name="ID" value="<%= data._id %>">
-        <label>What's your name</label>
-        <input type="text" name="Firstname" value="<%= data.Firstname %>">
-        <label>What's your age</label>
-        <input type="number" name="Age" value="<%= data.Age %>">
-        <label>On which console do you play</label>
-    <select type="text" name="console" value="">
-        <option value="<%= data.console %>" name="Playstation">Playstation</option>
-        <option value="Xbox" name="Xbox">Xbox</option>
-        <option value="PC" name="PC">PC</option>
-        <option value="Nintendo" name="Nintendo">Nintendo</option>
-      </select>  
-        <label>What's your email</label>
-        <input type="email" name="Email" value="<%= data.Email %>">
-        <input hidden type="text" name="Dislike" value="<%= data.Dislike %>">
-        <input hidden type="text" name="Like" value="<%= data.Like %>"> 
-        <button type="submit">Change</button>
-    </form>
+<form method="POST" action="/update">
+  <input type="hidden" name="ID" value="<%= data._id %>" />
+  <label>What's your name</label>
+  <input type="text" name="Firstname" value="<%= data.Firstname %>" />
+  <label>What's your age</label>
+  <input type="number" name="Age" value="<%= data.Age %>" />
+  <label>On which console do you play</label>
+  <select type="text" name="console" value="">
+    <option value="<%= data.console %>" name="Playstation">Playstation</option>
+    <option value="Xbox" name="Xbox">Xbox</option>
+    <option value="PC" name="PC">PC</option>
+    <option value="Nintendo" name="Nintendo">Nintendo</option>
+  </select>
+  <label>What's your email</label>
+  <input type="email" name="Email" value="<%= data.Email %>" />
+  <label>What's your favourite game</label>
+  <input
+    type="text"
+    name="FavGame"
+    value="<%= data.FavGame %>"
+    required
+    placeholder="Grand Theft Auto V"
+  />
+  <input hidden type="text" name="Dislike" value="<%= data.Dislike %>" />
+  <input hidden type="text" name="Like" value="<%= data.Like %>" />
+  <button type="submit">Change</button>
+</form>

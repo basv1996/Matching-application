@@ -6,23 +6,23 @@
     <header>
         <%- include('../partials/header') %>
     </header>
-    <main>
+    <main class="matches">
         <h1>All my matches page</h1>
         <section>
             <% for(let i =0; i< data.length; i++) { 
                 if(data[i].Like == "True"){
                 %>
-
              <article class="userCards">
-             <p class="name"><b>Name: </b> <%= data[i].Firstname %> </p>
-             <p class="age"><b>Age: </b> <%= data[i].Age %> </p>
-             <p class="console"><b>Console: </b> <%= data[i].console %> </p>
-             <p class="email"><b>Email: </b> <%= data[i].Email %> </p>
+                 <div class="data">
+             <p class="name"><%= data[i].Firstname %> </p>
+             <p class="console"><%= data[i].console %> </p>
+             <p class="favGame"><%= data[i].FavGame %> </p>
 
-             <form class="LikeMe" method="POST" action="/Dislike">
+             <form class="LikeMe dislikeMe" method="POST" action="/Dislike">
                  <input type="hidden" name="ID" value="<%= data[i]._id %>">
-                 <input type="submit" value="Dislike">
+                 <input type="submit" value="">
                  </form>
+                 </div>
              </article>
              <% } 
             } %>

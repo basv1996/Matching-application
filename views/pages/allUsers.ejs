@@ -6,35 +6,32 @@
     <header>
         <%- include('../partials/header') %>
     </header>
-    <main>
-        <h1>Displaying all users here  </h1>
+    <main class="allUsers">
         <section>
            <% for(let i =0; i< data.length; i++) {
             if(data[i].Like == "False"){
             %>
             <article class="userCards">
-            <p class="name"><b>Name: </b> <%= data[i].Firstname %> </p>
-            <p class="age"><b>Age: </b> <%= data[i].Age %> </p>
-            <p class="console"><b>Console: </b> <%= data[i].console %> </p>
-            <p class="email"><b>Email: </b> <%= data[i].Email %> </p>
-            <p class="Like"><b>Like: </b> <%= data[i].Like %> </p>
-            <p class="Dislike"><b>Dislike: </b> <%= data[i].Dislike %> </p>
+            <div class="data">
+            <p class="name age"><%= data[i].Firstname %>, <%= data[i].Age %></p>
+            <p class="console"><%= data[i].console %> </p>
+            <p class="favGame"><%= data[i].FavGame %></p>
+            
             <button><a href="/edit/<%= data[i].Email %>">Edit my data</a></button>
             <form class="LikeMe" method="POST" action="/like">
                 <input type="hidden" name="ID" value="<%= data[i]._id %>">
-                <input type="submit" value="Like">
+                <input type="submit" value="">
 
             </form>
-            <form method="POST" action="/delete">
+            <form class="deleteForm" method="POST" action="/delete">
                 <input type="hidden" name="ID" value="<%= data[i]._id %>">
-                <input type="submit" value="verwijder die shit">
+                <input type="submit" value="">
             </form>
+        </div>
             
             </article>
             <% } 
             }%>
-                </article>
-               
         </section>
     </main>
     <footer>

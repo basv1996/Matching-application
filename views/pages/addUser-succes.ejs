@@ -7,17 +7,16 @@
         <%- include('../partials/header') %>
     </header>
     <main>
-        <h1>Submitted form page</h1>
         <section>
-            <h2>You submitted the following Data:</h2>
-            <ul>
-                <li><b>Name:</b> <%= data.Firstname %></li>
-                <li><b>Age</b>: <%= data.Age %></li>
-                <li><b>Email:</b> <%= data.Email %></li>
-                <li><b>My console:</b> <%= data.console %></li>
-            </ul>
+            <article class="submittedData">
+                <p>Nice to meet you <i><%= data.Firstname %></i>, Welcome to game matcher</p>
+                <p>We see that you are <i><%= data.Age %></i> years old, that's a nice age</p>
+                <p>We also see that you are a true gamer playing your favourite vidoegame <i><%= data.FavGame %></i> on <i><%= data.console %></i></p>
+                <p>Please check if the information you provided us is correct</p>
+                <p>When clicking on confirm we'll sent you a confirmation Email and welcome you to the gaming family</p>
             <button><a href="/allUsers">Confirm</a></button>
             <button><a href="/edit/<%= data.Email %>">Edit my data</a></button>
+            </article>
         </section>
     </main>
     <footer>

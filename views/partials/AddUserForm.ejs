@@ -1,18 +1,39 @@
- <form method="POST" action="/profile">
-    <label>What's your name</label>
-    <input type="text" name="Firstname" value="" required placeholder="myAwesomeName">
-    <label>What's your age</label>
-    <input type="number" min="1" max="99" name="Age" value="" required>
-    <label>On which console do you play</label>
-    <select type="text" name="console" value="" required>
-        <option value="Playstation" name="Playstation">Playstation</option>
-        <option value="Xbox" name="Xbox">Xbox</option>
-        <option value="PC" name="PC">PC</option>
-        <option value="Nintendo" name="Nintendo">Nintendo</option>
-      </select>  
-    <label>What's your email</label>
-    <input type="email" name="Email" value="" required placeholder="myAwesomeEmail@email.com">
-    <input hidden type="text" name="Dislike" value="False">
-    <input hidden type="text" name="Like" value="False"> 
-    <button type="submit">submit</button>
+<form method="POST" action="/profile">
+  <label>What's your name</label>
+  <input
+    type="text"
+    name="Firstname"
+    value=""
+    required
+    placeholder="myAwesomeName"
+  />
+  <label>What's your age</label>
+  <input type="number" min="1" max="99" name="Age" value="" required />
+  <label>On which console do you play</label>
+  <select type="text" name="console" value="" required>
+    <option value="Playstation" name="Playstation">Playstation</option>
+    <option value="Xbox" name="Xbox">Xbox</option>
+    <option value="PC" name="PC">PC</option>
+    <option value="Nintendo" name="Nintendo">Nintendo</option>
+  </select>
+  <label>What's your email</label>
+  <input
+    type="email"
+    name="Email"
+    value=""
+    required
+    placeholder="myAwesomeEmail@email.com"
+  />
+  <label>What's your favourite game</label>
+  <input
+    type="text"
+    name="FavGame"
+    value=""
+    required
+    placeholder="Grand Theft Auto V"
+  />
+
+  <input hidden type="text" name="Dislike" value="False" />
+  <input hidden type="text" name="Like" value="False" />
+  <button type="submit">submit</button>
 </form>
