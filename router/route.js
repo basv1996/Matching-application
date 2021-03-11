@@ -56,7 +56,6 @@ router.post('/profile', function(req, res){
         Like: req.body.Like
     }
    
-    console.log("body data :", bodyData);
     db.initialize(dbName, collectionName, function(dbCollection) {
         dbCollection.insertOne(bodyData, function(error, result) {
             if (error) throw error
@@ -75,7 +74,6 @@ router.post('/profile', function(req, res){
 //When I click on edit then this route get excecuted
 //this one works
 router.get('/edit/:email', function(req, res){
-    console.log("Je zit nu in de get route voor findOne()");
     const bodyData = {
         id: req.body.ID,
         Firstname: req.body.Firstname,
@@ -87,7 +85,6 @@ router.get('/edit/:email', function(req, res){
     }
     const userEmail = req.params.email;
     const bodyDataID = ObjectID(req.body.ID);
-    console.log("the body inside get one contains: ", bodyData);
     db.initialize(dbName, collectionName, function(dbCollection) {
              dbCollection.findOne(
                  {Email: userEmail}, 
@@ -113,7 +110,6 @@ router.post('/update', function(req, res){
         Like: req.body.Like
     }
     const DBUserID = ObjectID(req.body.ID);
-console.log("the body inside update contains: ", updatedUser);
     db.initialize(dbName, collectionName, function(dbCollection) {
                       dbCollection.findOneAndUpdate({"_id": DBUserID}, {$set: updatedUser},function(error, result){
                           if (error) throw error;
@@ -194,9 +190,9 @@ db.initialize(dbName, collectionName, function(dbCollection) {
 
 
 
+
 //route for 404 page
 router.get('*', function(req, res){
-    //console.log('404');
     res.render('pages/404', {
         title: '404 Page'
     });
