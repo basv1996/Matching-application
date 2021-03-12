@@ -42,7 +42,7 @@ img {
 }
 
 button {
-  width: 35vw;
+  width: 100%;
   box-shadow: 0px 7px 20px #fff;
   border: none;
   background: #e94e1b;
@@ -86,6 +86,12 @@ header nav ul li a {
   color: #fff;
   font-size: 1.1em;
   font-weight: 500;
+}
+
+.active {
+  font-size: 1.3em;
+  color: #e94e1b;
+  font-weight: 300;
 }
 
 header nav ul li span {
@@ -181,7 +187,9 @@ form button {
   box-shadow: 5px 10px 8px #88888888;
   padding: 0.5em;
   background-image: url("../img/profilePictures/PFimg1.jpeg");
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .allUsers .userCards .data {
@@ -243,16 +251,17 @@ form.LikeMe input[type="submit"] {
   position: absolute;
   margin-top: 0.5em;
   left: 35vw;
-  width: 50vw;
+  width: 65%;
+  font-family: Futura;
+  font-size: 0.85em;
 }
 
 .matches .userCards .dislikeMe {
   position: absolute;
   top: 0;
   right: 0;
-  transform: translate(-50%, 25%);
 }
 
 form.dislikeMe input[type="submit"] {
-  background-image: url(../img/DislikeButton.png);
+  background-image: url(../img/Delete.png);
 }
