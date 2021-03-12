@@ -26,9 +26,8 @@ db.initialize(
   dbName,
   collectionName,
   function (dbCollection) {
-    dbCollection.find().toArray(function (err, result) {
+    dbCollection.find().toArray(function (err) {
       if (err) throw err;
-      console.log(result);
     });
   },
   function (err) {
@@ -42,7 +41,6 @@ app.set("views", path.join(__dirname, "views"));
 
 //using static files
 app.use(express.static(__dirname + "/public"));
-//app.use("/public", express.static(__dirname + "/public"));
 
 app.listen(port, function () {
   //watch out, there are different quotes here

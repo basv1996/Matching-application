@@ -18,7 +18,7 @@
              <p class="console"><%= data[i].console %> </p>
              <p class="favGame"><%= data[i].FavGame %> </p>
 
-             <form class="LikeMe dislikeMe" method="POST" action="/Dislike">
+             <form class="dislikeMe" method="POST" action="/Dislike">
                  <input type="hidden" name="ID" value="<%= data[i]._id %>">
                  <input type="submit" value="">
                  </form>
@@ -32,6 +32,7 @@
     </main>
     <footer>
         <%- include('../partials/footer') %>
+        <script src="../script/deleteConfirm.js"></script>
     </footer>
 </body>
 </html>

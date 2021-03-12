@@ -192,6 +192,59 @@ form button {
   background-position: center center;
 }
 
+.allUsers .userCards:first-child {
+  z-index: 1;
+}
+
+.allUsers .userCards:first-child h2 {
+  color: transparent;
+}
+
+.allUsers .userCards:first-child h2.liked {
+  position: absolute;
+  top: 1.5em;
+  left: 1.2em;
+  color: #62b230;
+  display: inline;
+  padding: 0.35em;
+  text-transform: uppercase;
+  border: 5px solid #62b230;
+  transform: rotate(-20deg);
+}
+
+.allUsers .userCards:first-child.liked {
+  z-index: 10;
+  animation: slideToTheRight 1.5s linear;
+}
+
+@keyframes slideToTheRight {
+  0% {
+    transform: rotate(0deg);
+    left: 0;
+    top: 1em;
+  }
+  25% {
+    transform: rotate(10deg);
+    left: 25%;
+    top: 1em;
+  }
+  50% {
+    transform: rotate(20deg);
+    left: 50%;
+    top: 1em;
+  }
+  75% {
+    transform: rotate(30deg);
+    left: 75%;
+    top: 1em;
+  }
+  100% {
+    transform: rotate(40deg);
+    left: 100%;
+    top: 1em;
+  }
+}
+
 .allUsers .userCards .data {
   background-color: #fee;
   position: absolute;

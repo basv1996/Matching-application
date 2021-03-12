@@ -1,7 +1,5 @@
-const deleteForm = document.querySelectorAll("form.deleteForm");
-const deleteButton = document.querySelector(
-  "form.deleteForm input:last-of-type"
-);
+const deleteForm = document.querySelectorAll("form.dislikeMe");
+const deleteButton = document.querySelector("form.dislikeMe input:last-child");
 
 function areYouSure() {
   for (var a = 0; a < deleteForm.length; a++) {
@@ -10,4 +8,5 @@ function areYouSure() {
   }
 }
 
-addEventListener.deleteButton("click", areYouSure);
+deleteButton.addEventListener("click", areYouSure);
+console.log("added delete confirm js file");
