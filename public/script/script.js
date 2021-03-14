@@ -1,7 +1,6 @@
 const TopUserCard = document.querySelector(
   ".allUsers section .userCards:first-child"
 );
-
 const likeFormButton = document.querySelector("form.LikeMe input:last-child");
 const likeTitle = document.querySelector(".allUsers .userCards:first-child h2");
 

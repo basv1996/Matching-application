@@ -49,7 +49,7 @@ button {
   border-radius: 1em;
   padding: 0.5em 0;
   /* position: absolute; */
-  bottom: 50vw;
+  /* bottom: 50vw; */
 }
 
 button a {
@@ -88,10 +88,9 @@ header nav ul li a {
   font-weight: 500;
 }
 
-.active {
-  font-size: 1.3em;
+.activeLink {
   color: #e94e1b;
-  font-weight: 300;
+  font-weight: 600;
 }
 
 header nav ul li span {
@@ -103,6 +102,11 @@ header nav ul li span {
 header nav ul li a img {
   margin-bottom: 0.5em;
   width: 55px;
+  filter: grayscale(100%);
+}
+
+a.activeLink img {
+  filter: grayscale(0);
 }
 
 main {
@@ -127,6 +131,12 @@ form button[type="submit"] {
 
 .submittedData p i {
   font-weight: 700;
+}
+
+.submittedData button {
+  position: absolute;
+  width: 40vw;
+  margin-top: 2em;
 }
 
 .submittedData button:last-child {
@@ -312,7 +322,7 @@ form.LikeMe input[type="submit"] {
 .matches .userCards .dislikeMe {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 1em;
 }
 
 form.dislikeMe input[type="submit"] {

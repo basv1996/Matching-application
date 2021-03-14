@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const process = require("process");
 
-let data;
+//let data;
 const db = require("../models/connect");
 const dbName = process.env.DB_NAME;
 const collectionName = process.env.COLLECTION_NAME;
@@ -28,7 +28,7 @@ router.get("/matches", function (req, res) {
   db.initialize(dbName, collectionName, function (dbCollection) {
     dbCollection.find().toArray(function (error, result) {
       if (error) throw error;
-      data = result;
+      //data = result;
       res.render("pages/matches", {
         title: "matched users",
         data: result,
@@ -93,7 +93,10 @@ router.post("/update", function (req, res) {
       { $set: updatedUser },
       function (error) {
         if (error) throw error;
-        res.redirect("/allUsers");
+        res.render("pages/addUser-succes", {
+          title: "succes page",
+          data: updatedUser,
+        });
       }
     );
   });
@@ -144,7 +147,7 @@ router.get("/allUsers", function (req, res) {
   db.initialize(dbName, collectionName, function (dbCollection) {
     dbCollection.find().toArray(function (error, result) {
       if (error) throw error;
-      data = result;
+      //data = result;
       res.render("pages/allUsers", {
         title: "all users",
         data: result,
